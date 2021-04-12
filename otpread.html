@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>smsotp</title>
+</head>
+<body>
+<div id="api">
+</div>
+<script type="text/javascript">
+function detect() {
+	
+  if ('OTPCredential' in window) {
+	var input=document.getElementById("verificationCode");
+	 navigator.credentials.get({otp: {transport: ['sms']}}).then((otp) => input.value=otp.code).catch((err) => input.value=err);
+/*.then((code) => alert(code)).catch((error) => alert(error));*/
+
+}
+}
+detect();
+</script>
+</body>
+</html>
