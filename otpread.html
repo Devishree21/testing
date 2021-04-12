@@ -6,19 +6,42 @@
 <div id="api">
 </div>
 <script type="text/javascript">
-function detect() {
+/*function detect() {
 	
   if ('OTPCredential' in window) {
 	var input=document.getElementById("verificationCode");
 	 /*navigator.credentials.get({otp: {transport: ['sms']}}).then((otp) => input.value=otp.code).catch((err) => input.value=err);*/
 /*.then((code) => alert(code)).catch((error) => alert(error));*/
 
-	navigator.credentials.get({otp: {transport: ['sms']}})
+	/*navigator.credentials.get({otp: {transport: ['sms']}})
       .then((code) => alert('Code received: ' + code))
       .catch((error) => alert('SMS receiving error: ' + error));
 }
 }
-detect();
+detect();*/
+
+function addAutoCompleteAttribute() {
+			var codeInput = document.getElementById("verificationCode");
+			if(codeInput != null) {
+				codeInput.setAttribute("autocomplete", "one-time-code");
+			}
+		}
+		addAutoCompleteAttribute();
+
+function waitForSms() {
+  if ('OTPCredential' in window) {
+    alert('Waiting for SMS. Try sending yourself a following message:\n\n' +
+        'Your verification code is: 123ABC\n\n' +
+        '@whatwebcando.today #123ABC');
+  
+    navigator.credentials.get({otp: {transport: ['sms']}})
+      .then((code) => alert('Code received: ' + code))
+      .catch((error) => alert('SMS receiving error: ' + error));
+  } else {
+    alert('Web OTP API not supported');
+  }
+}
+waitForSms();
 </script>
 </body>
 </html>
